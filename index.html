@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register for Full Stack Conf</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,10 +20,10 @@
               
       <fieldset>         
         <legend>Basic Info</legend>
-        
+        <div class="error-name"></div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="user_name">
-        
+        <div class="error-email"></div>
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user_email">
         
@@ -33,8 +34,12 @@
           <option value="back-end developer">Back End Developer</option>
           <option value="designer">Designer</option>          
           <option value="student">Student</option>
-          <option value="other">Other</option>  
-        </select>           
+          <option class="job-other" value="other">Other</option>  
+        </select>  
+        <div id="other-title">
+          <label for="other">Other Job Role:</label>
+          <input type="text" name="user_Other_Job_Role" id="other" placeholder="Your Job Role">
+        </div>         
       </fieldset>
       
       <fieldset class="shirt">
@@ -73,6 +78,7 @@
       </fieldset>
 
       <fieldset class="activities">
+        <div class="error-activities"></div>
         <legend>Register for Activities</legend>
         <label><input type="checkbox" name="all"> Main Conference — $200</label>
         <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
@@ -128,11 +134,11 @@
           </select>
           <label for="exp-year">Expiration Year:</label>
           <select id="exp-year" name="user_exp-year">
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
-            <option value="2020">2020</option>        		          
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
           </select> 	                  	         
         </div>
 
@@ -152,6 +158,6 @@
 
   </div>
   
-  <script src="js/app.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

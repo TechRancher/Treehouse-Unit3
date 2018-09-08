@@ -114,6 +114,19 @@ button:hover {
 }
 
 /* ================================= 
+  Form Element Error Styles
+==================================== */
+.invalid {
+	border-color: red;
+}
+.error-name,
+.error-email {
+	color: #8b271f;
+}
+
+
+
+/* ================================= 
   Page Styles
 ==================================== */
 
