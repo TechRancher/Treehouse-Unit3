@@ -113,6 +113,10 @@ button:hover {
 	background: #184c62;
 }
 
+.act-total {
+	color: #29b027;
+}
+
 /* ================================= 
   Form Element Error Styles
 ==================================== */
@@ -120,7 +124,9 @@ button:hover {
 	border-color: red;
 }
 .error-name,
-.error-email {
+.error-email,
+.error-shirt,
+.error-activities {
 	color: #8b271f;
 }
 

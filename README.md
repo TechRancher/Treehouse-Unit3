@@ -14,7 +14,7 @@ Job Role section
 T-Shirt Info section
   In the “Color” menu, only display the color options that match the design selected in the “Design” Menu.
   If the user selects “Theme – JS Puns” then the color menu should only display “Cornflower Blue”, “Dark Slate Grey”, and “Gold”.
-  If the user selects “Theme – I (heart) JS” then the color menu should only display “Tomato”, “Steel Blue”, and “Dim Grey”.
+  If the user selects “Theme – I &#9829 (heart) JS” then the color menu should only display “Tomato”, “Steel Blue”, and “Dim Grey”.
   When a new theme is selected from the “Design” menu, the “Color” field and drop down menu is updated.
 
 Register for Activities section
