@@ -15,7 +15,7 @@ const colorColumn = document.querySelector("#colors-js-puns");
 const errorDesign = document.querySelector(".error-shirt");
 const tShirtDesign = document.querySelector("#design");
 const register = document.querySelector(".activities");
-const listTotal = document.querySelector(".act-total");
+let listTotal = document.querySelector(".act-total");
 
 
 
@@ -129,33 +129,18 @@ tShirtDesign.addEventListener("change", function(even) {
 
 // REGISTER FOR ACTIVITIES
 register.addEventListener("change", function(event) {
-  listTotal.innerHTML = "";
-  if(event.name == "all") {
-    total += "$200";
+  let total = 0;
+  let all = document.querySelector("#all");
+  for(let i=0; i<form.length; i++) {
+    if (form[i].checked ) {
+      total += 100;
+    } 
   }
-  if(event.name == "js-frameworks") {
-    total += "$100";
-    express.disabled();
-  }
-  if(event.name == "js-libs") {
-    total += "$100";
-    node.disabled();
-  }
-  if(event.name == "express") {
-    total += "$100";
-    js-framework.disabled();
-  }
-  if(event.name == "node") {
-    total += "$100";
-    js-libs.disabled();
-  }
-  if(event.name == "build-tools") {
-    total += "$100";
-  }
-  if(event.name == "npm") {
-    total += "$100";
+  if (all.checked) {
+    total += 100;
   }
   
+  listTotal.textContent = `Total for the Activities is $ ${total}`;
 });
 
 // PAYMENT INFO
