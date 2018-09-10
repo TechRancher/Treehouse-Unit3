@@ -117,6 +117,10 @@ button:hover {
 	color: #29b027;
 }
 
+.disabled {
+	color: #caf3dd;
+}
+
 /* ================================= 
   Form Element Error Styles
 ==================================== */

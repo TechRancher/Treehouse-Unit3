@@ -129,18 +129,90 @@ tShirtDesign.addEventListener("change", function(even) {
 
 // REGISTER FOR ACTIVITIES
 register.addEventListener("change", function(event) {
+  // set the starting total
   let total = 0;
+  // calling all the different document.querys
   let all = document.querySelector("#all");
+  let frameworks = document.querySelector("#frameworks");
+  let frame = document.querySelector("#frame");
+  let express = document.querySelector("#express");
+  let libs = document.querySelector("#libs");
+  let lib = document.querySelector("#lib");
+  let node = document.querySelector("#node");
+  let exp = document.querySelector("#exp");
+  let no = document.querySelector("#no");
+  // looping through the checkboxes
   for(let i=0; i<form.length; i++) {
     if (form[i].checked ) {
+      // adding the activities price
       total += 100;
     } 
   }
+  // setting the price for the main conference
   if (all.checked) {
     total += 100;
   }
-  
+  // disable the over lap time frames if Frameworks was checked.
+  if(frameworks.checked) {
+    express.disabled = true;
+    exp.classList.add("disabled");
+    // Subtract the amount of Express Workshop if it was checked before. 
+    if(express.checked) {
+      total -= 100;
+    }
+  } else {
+    // if the Frameworks was unchecked reset the checkbox.
+    express.disabled = false;
+    exp.classList.remove("disabled");
+  }
+  // disable the over lap time frame if Libraries Workshop was checked.
+  if(libs.checked) {
+    node.disabled = true;
+    no.classList.add("disabled");
+    // Subtract the amount of Node.js Workshop if it was checked before. 
+    if(node.checked) {
+      total -= 100;
+    }
+  } else {
+    // if the Libraries Workshop unchecked reset the checkbox.
+    node.disabled = false;
+    no.classList.remove("disabled");
+  }
+  // disable the over lap time frame if Express Workshop was checked.
+  if(express.checked) {
+    frameworks.disabled = true;
+    frame.classList.add("disabled");
+    if(frameworks.checked) {
+      // Subtract the amount of Frameworks Workshop if it was checked before.
+      total -= 100;
+    }
+  } else {
+    // if the Express Workshop unchecked reset the checkbox.
+    frameworks.disabled = false;
+    frame.classList.remove("disabled");
+  }
+  // disable the over lap time frame if Node.js Workshop was checked.
+  if(node.checked) {
+    libs.disabled = true;
+    lib.classList.add("disabled");
+    if(libs.checked) {
+      // Subtract the amount of Libraries Workshop if it was checked before.
+      total -= 100;
+    }
+  } else {
+    // if the Node.js Workshop unchecked reset the checkbox.
+    libs.disabled = false;
+    lib.classList.remove("disabled");
+  }
+  // Display the running total for the activities
   listTotal.textContent = `Total for the Activities is $ ${total}`;
+  if(total == 0) {
+    // hide total if it = 0
+    listTotal.style.display = "none";
+  } else {
+    // display total if it = >0
+    listTotal.style.display = "block";
+  }
 });
 
 // PAYMENT INFO
