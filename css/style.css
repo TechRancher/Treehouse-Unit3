@@ -130,7 +130,8 @@ button:hover {
 .error-name,
 .error-email,
 .error-shirt,
-.error-activities {
+.error-activities,
+.error-payment {
 	color: #8b271f;
 }
 

@@ -15,49 +15,51 @@ const colorColumn = document.querySelector("#colors-js-puns");
 const errorDesign = document.querySelector(".error-shirt");
 const tShirtDesign = document.querySelector("#design");
 const register = document.querySelector(".activities");
+const errorActivity = document.querySelector(".error-activites");
 let listTotal = document.querySelector(".act-total");
+const errorPay = document.querySelector(".error-payment");
+const pay = document.querySelector("#pay");
+const payment = document.querySelectorAll("#payment");
+const creditCard = document.querySelector("#credit-card");
+const payPal = document.querySelector("#paypal");
+const bitCoin = document.querySelector("#bitcoin");
+const ccText = document.querySelector("#cc-num");
+const zip = document.querySelector("#zip");
+const cvv = document.querySelector("#cvv");
 
 
+// General functions
+// add on required attribute
+const requiredOn = element => {
+  element.required = true;
+};
+// removes the required attribute
+const requiredOff = element => {
+  element.required = false;
+};
+// used to hid the items
+const hide = element => {
+  element.style.display = "none";
+};
+// used to show the items
+const show = element => {
+  element.style.display = "block";
+};
 
 
 // WINDOW LOAD
 window.onload = function(event) {
   name.focus(); // This sets the focus on the name input on page load.
-  otherJob.style.display = "none"; // This hides the other Job option on page load.
-  colorColumn.style.display = "none"; // Extra credit to hide color on page load.
+  hide(otherJob); // This hides the other Job option on page load.
+  hide(colorColumn); // Extra credit to hide color on page load.
+  hide(creditCard); // Hide the credit-card information on page load.
+  hide(payPal); // Hide the paypal information on page load.
+  hide(bitCoin); // Hide the bitcoin information on page load.
+  // form.noValidate = true; // turns off default validation messages
 };
-
-//  NAME INPUT 
-name.onblur = function() {
-  if (name.value == "") {
-    // show the error
-    this.classList.add("invalid");
-    errorName.innerHTML = "Please enter your name.";
-  }
-}
-name.onfocus = function() {
-  if(this.classList.contains("invalid")) {
-    // remove the "errorName" indication, because the user wants to re-enter something
-    this.classList.remove("invalid");
-    errorName.innerHTML = "";
-  }
-}
 
 // EMAIL INPUT
-email.onblur = function() {
-  if (!email.value.includes("@")) {
-    // show the error
-    this.classList.add("invalid");
-    errorEmail.innerHTML = "Please enter a correct email.";
-  }
-};
-email.onfocus = function() {
-  if(this.classList.contains("invalid")) {
-    // remove the "errorEmail" indication, because the user wants to re-enter something
-    this.classList.remove("invalid");
-    errorEmail.innerHTML = "";
-  }
-};
+
 email.addEventListener("keyup", function(event) {
   if (!email.value.includes("@")) {
     // show the error
@@ -67,7 +69,7 @@ email.addEventListener("keyup", function(event) {
     this.classList.remove("invalid");
     errorEmail.innerHTML = "";
   }
-})
+});
 
 // JOB ROLE
 const jobRoleOther = addEventListener("change", function(event) {
@@ -75,9 +77,9 @@ const jobRoleOther = addEventListener("change", function(event) {
     // add class
     event.target.classList.add("other");
     // Display #other-title
-    otherJob.style.display = "block";
+    show(otherJob);
   } else if(event.target.classList.contains("other")) {
-    otherJob.style.display = "none";
+    hide(otherJob);
   }
 });
 
@@ -85,7 +87,7 @@ const jobRoleOther = addEventListener("change", function(event) {
 /* For extra credit. Hide the "color" label and select menu until a T-Shirt design is selected from the "Design" menu. */
 tShirtDesign.addEventListener("change", function(even) {
   if(event.target.value == "js puns" || event.target.value == "heart js") {
-    colorColumn.style.display = "block";
+    show(colorColumn);
   }
   // This function is used to Display different options based off the user's selection
   (function() {
@@ -112,7 +114,7 @@ tShirtDesign.addEventListener("change", function(even) {
         colors_Theme.appendChild(op);
       }
       if (event.target.value == "Select Theme") {
-        colorColumn.style.display = "none";
+        hide(colorColumn);
         this.classList.add("invalid");
         errorDesign.innerHTML = "Please chose a T-Shirt Design Theme like JS Puns or I &#9829; JS.";
       } else if (this.classList.contains("invalid")) {
@@ -128,6 +130,7 @@ tShirtDesign.addEventListener("change", function(even) {
 
 
 // REGISTER FOR ACTIVITIES
+
 register.addEventListener("change", function(event) {
   // set the starting total
   let total = 0;
@@ -204,31 +207,289 @@ register.addEventListener("change", function(event) {
     libs.disabled = false;
     lib.classList.remove("disabled");
   }
-  // Display the running total for the activities
-  listTotal.textContent = `Total for the Activities is $ ${total}`;
   if(total == 0) {
     // hide total if it = 0
-    listTotal.style.display = "none";
+    hide(listTotal);
   } else {
-    // display total if it = >0
-    listTotal.style.display = "block";
+    // display total if it > 0
+    show(listTotal);
+  }
+  // Display the running total for the activities
+  listTotal.textContent = `Total for the Activities is $ ${total}`;
+  
+});
+
+
+// PAYMENT INFO
+pay.addEventListener("change", function(event){
+  if(event.target.value == "select_method") {
+    // if Select Payment Method is selected display error
+    errorPay.innerHTML = `Please select a form of payment.`;
+  } else {
+    // if Select Payment Method is not selected hide error message
+    errorPay.innerHTML = "";
+  }
+  if(event.target.value == "credit card") {
+    // if Credit Card Payment is selected display creditCard details
+    creditCard.style.display = "block";
+    ccText.focus();
+  } else {
+    // if Credit Card Payment is not selected hide creditCard details
+    creditCard.style.display = "none";
+  }
+  if(event.target.value == "paypal") {
+    // if PayPal Payment is selected display payPa info
+    payPal.style.display = "block";
+  } else {
+    // if PayPal Payment is not selected hide payPal info
+    payPal.style.display = "none";
+  }
+  if(event.target.value == "bitcoin") {
+    // if BitCoin Payment is selected display bitCoin info
+    bitCoin.style.display = "block";
+  } else {
+    // if BitCoin Payment is not selected hide bitCoin info
+    bitCoin.style.display = "none";
   }
 });
 
-// PAYMENT INFO
 /* For extra credit. If trhe field isn't empty for the credit card number but contains only 10 numbers, the error message reads "Please enter a number that is between 13 and 16 digits long." */
+ccText.addEventListener("keydown", function (event) {
+  // called eventListener with keydown to run through input ccText.value 
+  let isNum = event.target.value.match(/^\d+$/); // looking to see if anything other than numbers is being entered into textbox
+  if (!isNum) {
+    // displaying error if anything other than numbers are entered into textbox
+    errorPay.innerHTML = `Please enter numbers only.`;
+  } else if (this.value.length < 12 || this.value.length == 16) {
+    // reading the length of the value in the textbox to see if it is between 13 and 16 numbers
+    // displaying error if numbers are less than 13 or more than 16
+    errorPay.innerHTML = `Please enter a number that is between 13 and 16 digits long.`;
+  } else {
+    // reset errorPay to empty string.
+    errorPay.innerHTML = "";
+  } 
+});
 
-// FORM VALIDATION ON BUTTON SUBMIT
+zip.addEventListener("keydown", function(event){  
+  // called eventListener with keydown to run through input zip.value 
+  let isNum = event.target.value.match(/^\d+$/); // looking to see if anything other than numbers is being entered into textbox
+  if (!isNum) {
+    // displaying error if anything other than numbers are entered into textbox
+    errorPay.innerHTML = `Please enter numbers only.`;
+  } else if (this.value.length == 5) {
+    // reading the length of the value in the textbox to see that it is 5 numbers
+    // displaying error if numbers are less than 5 or greater
+    errorPay.innerHTML = `Please enter a number that is 5 digits long.`;
+  } else {
+    // reset errorPay to empty string.
+    errorPay.innerHTML = "";
+  } 
+});
+
+cvv.addEventListener("keydown", function (event) {
+  // called eventListener with keydown to run through input cvv.value 
+  let isNum = event.target.value.match(/^\d+$/); // looking to see if anything other than numbers is being entered into textbox
+  if (!isNum) {
+    // displaying error if anything other than numbers are entered into textbox
+    errorPay.innerHTML = `Please enter numbers only.`;
+  } else if (this.value.length == 3) {
+    // reading the length of the value in the textbox to see that it is 3 numbers
+    // displaying error if numbers are less than 3 or greater
+    errorPay.innerHTML = `Please enter a number that is 3 digits long.`;
+  } else {
+    // reset errorPay to empty string.
+    errorPay.innerHTML = "";
+  }
+});
+
+
+// FORM VALIDATION ON BUTTON SUBMIT.
+
+console.log(payment);
 
 
 
 
+// SUBMIT VALIDATION
+const formValidation = () => {
+  //  to check empty form fields.
+  // NAME VALIDATION
+  if (name.value.length == 0) {
+    errorName.innerText = "Please enter your name."; // this displays if the name is not entered
+    name.focus();
+    return false;
+  }
+
+  // Check each input in the order that it appears in the form!
+  if (inputAlphabet(name, "For your name please use alphabets only")) {
+    if (emailValidation(email, "Please enter a valid email address")) {
+      if (validateActivites()) {
+        if (payment.vaule == "credit card" && lengthCCNumber(ccText, 13, 16)) {
+          if (payment.vaule == "credit card" && lengthZip(zip, 5)) {
+            if (payment.vaule == "credit card" && lengthCCV(zip, 3)) {
+              if (payment.vaule == "credit card" && textCCNumber(ccText, "Please enter a valid Credit Card Number")) {
+                if (payment.vaule == "credit card" && textNumberZip(zip, "Please enter a valid zip code")) {
+                  if (payment.vaule == "credit card" && textNumberCCV(ccv, "Please enter a valid zip code")) {
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return false;
+};
+
+// This checks whether input text on name is an alphabetic character or not.
+// NAME VALIDATION
+const inputAlphabet = (inputtext, alertMsg) => {
+  let alphaExp = /^[a-zA-Z]+$/;
+  if (inputtext.value.match(alphaExp)) {
+    return true;
+  } else {
+    errorName.innerText = alertMsg;  //this segment displays the validation rule for name
+    //alert(alertMsg);
+    inputtext.focus();
+    return false;
+  }
+};
+
+// This checks whether an user entered valid email address or not and displays alert message on wrong email address format.
+// EMAIL VALIDATION
+const emailValidation = (inputtext, alertMsg) => {
+  var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+  if (inputtext.value.match(emailExp)) {
+    return true;
+  } else {
+    errorEmail.innerText = alertMsg; //this segment displays the validation rule for email
+    inputtext.focus();
+    return false;
+  }
+};
+
+// This checks whether a option is selected from the Activites and if it's not it displays an alert message.
+// REGISTER FOR ACTIVITIES VALIDATION
+// FUNCTIONS
+const validateActivites = () => {
+  // this checks to see if any of the checkboxes in REGISTER FOR ACTIVITIES is checked
+  for (let i = 0; i < register.length; i++) {
+    if (register.input[i].checked) {
+      // calling to see if the activitive is checked
+      console.log(register.input[i]);
+      return true;
+    } else {
+      errorActivity.innerHTML = `Please choose at least one Activity.`;
+      return false;
+    }
+  }
+    
+  // } else {
+  //   errorActivity.innerHTML = "";
+  // }
+};
+const activitiesIsChecked = (inputtext, alertMsg) => {
+  
+  if (inputtext.value == "Please Choose") {
+    errorActivity.innerText = alertMsg; //this segment displays the validation rule for selection
+    inputtext.focus();
+    return false;
+  } else {
+    return true;
+  }
+};
+
+// This checks whether input text on Credit Card Number is numeric or not.
+// CREDIT CARD VALIDATION
+const textCCNumber = (inputtext, alertMsg) => {
+  let numericExpression = /^[0-9]+$/;
+  if (inputtext.value.match(numericExpression)) {
+    return true;
+  } else {
+    errorPay.innerText = alertMsg;  //this segment displays the validation rule for Credit Card Number
+    inputtext.focus();
+    return false;
+  }
+};
+
+
+// This checks whether the input on Credit Card Numbers are validated by the right length.
+// CREDIT CARD VALIDATION
+const lengthCCNumber = (inputtext, min, max) => {
+  let uInput = inputtext.value;
+  if (uInput.length >= min && uInput.length <= max) {
+    return true;
+  } else {
+  errorPay.innerText = `Please enter between ${min} and ${max} Credit Card Numbers. `; //this segment displays the validation rule CCPayment
+  inputtext.focus();
+  return false;
+  }
+};
+
+// This checks whether the input on Zip Code Numbers are validated by the right length.
+// CREDIT CARD VALIDATION
+const lengthZip = (inputtext, max) => {
+  let uInput = inputtext.value;
+  if (uInput.length >= min && uInput.length <= max) {
+    return true;
+  } else {
+    errorPay.innerText = `Please enter Zip Code Number that is ${max} long. `; //this segment displays the validation rule CCPayment
+    inputtext.focus();
+    return false;
+  }
+};
+
+// This checks whether the input on CCV Code Numbers are validated by the right length.
+// CREDIT CARD VALIDATION
+const lengthCCV = (inputtext, max) => {
+  let uInput = inputtext.value;
+  if (uInput.length >= min && uInput.length <= max) {
+    return true;
+  } else {
+    errorPay.innerText = `Please enter CCV Code Number that is ${max} long. `; //this segment displays the validation rule CCPayment
+    inputtext.focus();
+    return false;
+  }
+};
+
+// This checks whether input text on Zip Code is numeric or not.
+// CREDIT CARD VALIDATION
+const textNumberZip = (inputtext, alertMsg) => {
+  let numericExpression = /^[0-9]+$/;
+  if (inputtext.value.match(numericExpression)) {
+    return true;
+  } else {
+    errorPay.innerText = alertMsg;  //this segment displays the validation rule for Zip Code Number
+    inputtext.focus();
+    return false;
+  }
+};
+
+// This checks whether input text on Credit Card Number CCV is numeric or not.
+// CREDIT CARD VALIDATION
+const textNumberCCV = (inputtext, alertMsg) => {
+  let numericExpression = /^[0-9]+$/;
+  if (inputtext.value.match(numericExpression)) {
+    return true;
+  } else {
+    errorPay.innerText = alertMsg;  //this segment displays the validation rule for CCV Number
+    inputtext.focus();
+    return false;
+  }
+};
 
 
 
-
-
-
-
-
+// listens for submit button
+form.addEventListener('submit', (e) => {
+  //checks whole form for validity errors, if there is at least one error, runs block of code below; also check for at least one checked activity and valid email pattern
+  formValidation();
+  if(formValidation().returns == false) {
+    e.preventDefault();
+  } else {
+    // e.preventDefault();
+  }
+});
 

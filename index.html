@@ -16,7 +16,7 @@
       <h1>Full Stack Conf</h1>
     </header>
 
-    <form action="index.html" method="post">
+    <form action="#" method="post">
               
       <fieldset>         
         <legend>Basic Info</legend>
@@ -59,7 +59,7 @@
           <label for="design">Design:</label>
           <select id="design" name="user_design">
             <option>Select Theme</option>
-            <option value="js puns" selected="selected" >Theme - JS Puns</option>
+            <option value="js puns">Theme - JS Puns</option>
             <option value="heart js">Theme - I &#9829; JS</option>
           </select>
         </div>
@@ -89,9 +89,10 @@
         <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
         <div class="act-total"></div>                  	
       </fieldset>
-      <fieldset>
-        <legend>Payment Info</legend>
 
+      <fieldset id="pay">
+        <legend>Payment Info</legend>
+        <p class="error-payment"></p>
         <label for="payment">I'm going to pay with:</label>
         <select id="payment" name="user_payment">
           <option value="select_method">Select Payment Method</option>
@@ -142,11 +143,11 @@
           </select> 	                  	         
         </div>
 
-        <div>
+        <div id="paypal">
         	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
 
-        <div>
+        <div id="bitcoin">
         	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>                  
 
