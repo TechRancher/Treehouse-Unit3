@@ -15,7 +15,7 @@ const colorColumn = document.querySelector("#colors-js-puns");
 const errorDesign = document.querySelector(".error-shirt");
 const tShirtDesign = document.querySelector("#design");
 const register = document.querySelector(".activities");
-const errorActivity = document.querySelector(".error-activites");
+const errorActivity = document.querySelector(".error-activities");
 let listTotal = document.querySelector(".act-total");
 const errorPay = document.querySelector(".error-payment");
 const pay = document.querySelector("#pay");
@@ -57,6 +57,21 @@ window.onload = function(event) {
   hide(bitCoin); // Hide the bitcoin information on page load.
   // form.noValidate = true; // turns off default validation messages
 };
+
+// NAME INPUT
+// NAME VALIDATION
+name.addEventListener("blur", function() {
+  let alphaExp = /^[a-zA-Z]+$/;
+  if (name.value.match(alphaExp)) {
+    errorName.textContent = "";
+    return true;
+  } else {
+    errorName.textContent = `Please enter your name`;  //this segment displays the validation rule for name
+    //alert(alertMsg);
+    name.focus();
+    return false;
+  }
+});
 
 // EMAIL INPUT
 
@@ -304,8 +319,16 @@ cvv.addEventListener("keydown", function (event) {
 
 
 // FORM VALIDATION ON BUTTON SUBMIT.
+// const checkbox = document.querySelectorAll('input[type="checkbox"]').checked;
+// if (checkbox) {
+//   console.log("I'm checked");
+  
+// } else {
+//   errorActivity.innerHTML = `Check an Activity`;
+//   console.log("I'm not checked");
+  
+// }
 
-console.log(payment);
 
 
 
@@ -315,7 +338,7 @@ const formValidation = () => {
   //  to check empty form fields.
   // NAME VALIDATION
   if (name.value.length == 0) {
-    errorName.innerText = "Please enter your name."; // this displays if the name is not entered
+    errorName.textContent = "Please enter your name."; // this displays if the name is not entered
     name.focus();
     return false;
   }
@@ -323,13 +346,13 @@ const formValidation = () => {
   // Check each input in the order that it appears in the form!
   if (inputAlphabet(name, "For your name please use alphabets only")) {
     if (emailValidation(email, "Please enter a valid email address")) {
-      if (validateActivites()) {
-        if (payment.vaule == "credit card" && lengthCCNumber(ccText, 13, 16)) {
-          if (payment.vaule == "credit card" && lengthZip(zip, 5)) {
-            if (payment.vaule == "credit card" && lengthCCV(zip, 3)) {
-              if (payment.vaule == "credit card" && textCCNumber(ccText, "Please enter a valid Credit Card Number")) {
-                if (payment.vaule == "credit card" && textNumberZip(zip, "Please enter a valid zip code")) {
-                  if (payment.vaule == "credit card" && textNumberCCV(ccv, "Please enter a valid zip code")) {
+      if (validateActivites("Please choose at least one Activity")) {
+        if (pay.vaule == "credit card" && lengthCCNumber(ccText, 13, 16)) {
+          if (pay.vaule == "credit card" && lengthZip(zip, 5)) {
+            if (pay.vaule == "credit card" && lengthCCV(zip, 3)) {
+              if (pay.vaule == "credit card" && textCCNumber(ccText, "Please enter a valid Credit Card Number")) {
+                if (pay.vaule == "credit card" && textNumberZip(zip, "Please enter a valid zip code")) {
+                  if (pay.vaule == "credit card" && textNumberCCV(ccv, "Please enter a valid zip code")) {
                     return true;
                   }
                 }
@@ -350,7 +373,7 @@ const inputAlphabet = (inputtext, alertMsg) => {
   if (inputtext.value.match(alphaExp)) {
     return true;
   } else {
-    errorName.innerText = alertMsg;  //this segment displays the validation rule for name
+    errorName.textContent = alertMsg;  //this segment displays the validation rule for name
     //alert(alertMsg);
     inputtext.focus();
     return false;
@@ -364,7 +387,7 @@ const emailValidation = (inputtext, alertMsg) => {
   if (inputtext.value.match(emailExp)) {
     return true;
   } else {
-    errorEmail.innerText = alertMsg; //this segment displays the validation rule for email
+    errorEmail.textContent = alertMsg; //this segment displays the validation rule for email
     inputtext.focus();
     return false;
   }
@@ -373,22 +396,20 @@ const emailValidation = (inputtext, alertMsg) => {
 // This checks whether a option is selected from the Activites and if it's not it displays an alert message.
 // REGISTER FOR ACTIVITIES VALIDATION
 // FUNCTIONS
-const validateActivites = () => {
+const validateActivites = (alertMsg) => {
+  
   // this checks to see if any of the checkboxes in REGISTER FOR ACTIVITIES is checked
-  for (let i = 0; i < register.length; i++) {
-    if (register.input[i].checked) {
-      // calling to see if the activitive is checked
-      console.log(register.input[i]);
+  const checkbox = document.querySelectorAll('input[type="checkbox"]');
+  for(let i=0; i<checkbox.length; i++) {
+    if (checkbox[i].checked) {
+      errorActivity.innerText = "";
       return true;
     } else {
-      errorActivity.innerHTML = `Please choose at least one Activity.`;
+      errorActivity.innerText = `${alertMsg}`;
       return false;
     }
   }
-    
-  // } else {
-  //   errorActivity.innerHTML = "";
-  // }
+  
 };
 const activitiesIsChecked = (inputtext, alertMsg) => {
   
@@ -486,10 +507,10 @@ const textNumberCCV = (inputtext, alertMsg) => {
 form.addEventListener('submit', (e) => {
   //checks whole form for validity errors, if there is at least one error, runs block of code below; also check for at least one checked activity and valid email pattern
   formValidation();
-  if(formValidation().returns == false) {
-    e.preventDefault();
+  if(formValidation()) {
+    form.action = "index.html";
   } else {
-    // e.preventDefault();
+    e.preventDefault();
   }
 });
 
